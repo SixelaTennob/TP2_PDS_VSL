@@ -103,6 +103,50 @@ public class ASD {
         }
     }
 
+
+    static public abstract class Variable {
+        public abstract String pp();
+
+        public abstract RetVariable toIR() throws TypeException;
+
+
+        // Object returned by toIR on expressions, with IR + synthesized attributes
+        static public class RetVariable {
+
+            public String variable;
+
+            public RetVariable(String variable) {
+                this.variable = variable;
+            }
+        }
+    }
+
+    static public class VariableExt extends Variable {
+        List<String> listVariable;
+
+        public VariableExt (List<String> listVariable){
+            this.listVariable = listVariable;
+        }
+
+        //Pretty Printer
+        public String pp() {
+            String decl="INT";
+            for(String e :listVariable){
+                decl +=e +",";
+            }
+            return decl;
+        }
+
+        public RetVariable toIR() throws TypeException {
+            String ret="";
+            for(String e :listVariable){
+                Llvm.Instruction var = new Llvm.Variable(e);
+                ret +=e;
+            }
+            return new RetVariable(ret);
+        }
+    }
+
 	static public class Affectation extends Instruction {
 	    String left;
 	    Expression right;

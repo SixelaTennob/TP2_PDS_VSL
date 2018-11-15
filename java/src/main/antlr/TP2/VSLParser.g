@@ -21,11 +21,16 @@ program returns [ASD.Program out]
     ;
 
 bloc returns [ASD.Bloc out]
-    //déclaration d'une ArrayList de type expression_basse
+    //déclaration d'une ArrayList de type expression
     :{ List<ASD.Expression> ListExpression = new ArrayList<>(); List<ASD.Affectation> ListAffectation = new ArrayList<>();}//{} spécifie au parser que c'est du code java pas une recherche de tokens
 
      LA ((a=affectation {ListAffectation.add($a.out);})* | (e=expression_basse {ListExpression.add($e.out);})*) RA { $out = new ASD.BlocExt(ListExpression,ListAffectation); }
      //Pas besoin de $ car c'est une variable synthétisée (qui existe que dans le code java) contrairement à e qui est une variable héritée
+    ;
+
+variable returns [ASD.Variable out]
+    : {List<String> listVariable = new ArrayList<>();}
+    INT (IDENT {listVariable.add($IDENT.text);} VIR)* IDENT {listVariable.add($IDENT.text);} { $out = new ASD.VariableExt(listVariable); }
     ;
 
 affectation returns [ASD.Affectation out]
