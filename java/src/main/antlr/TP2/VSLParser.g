@@ -29,7 +29,7 @@ instruction returns [ASD.Instruction out]
      :a=affectation {$out = $a.out;}
      |e=expression_basse {$out = $e.out;}
      |INT v=variable {$out = $v.out;}
-    // |RET e=expression_basse {$out = new ASD.Retourne ($e.out);}
+     |RET e=expression_basse {$out = new ASD.Retourne ($e.out);}
      ;
 
 variable returns [ASD.Instruction out]

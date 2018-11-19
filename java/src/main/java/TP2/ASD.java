@@ -320,6 +320,28 @@ public class ASD {
         }
     }
 
+    static public class Retourne extends Instruction{
+        Instruction expression;
+
+        public Retourne (Instruction expression){
+
+            this.expression = expression;
+        }
+
+        @java.lang.Override
+        public String pp() {
+            return "RETURN " + expression.pp();
+        }
+
+        @java.lang.Override
+        public RetInstruction toIR() throws TypeException {
+            Instruction.RetInstruction expr = expression.toIR();
+            Llvm.Instruction ret = new Llvm.Return(expr.type.toLlvmType(), expr.result);
+            expr.ir.appendCode(ret);
+            return new RetInstruction(expr.ir,expr.type,expr.result);
+        }
+    }
+
     // Concrete class for Expression: constant (integer) case
     static public class IntegerExpression extends Instruction {
         int value;
