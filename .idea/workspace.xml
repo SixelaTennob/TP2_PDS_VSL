@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67747cd9-ee75-4e1d-84a1-a22c8fed990f" name="Default Changelist" comment="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs">
-      <change beforePath="$PROJECT_DIR$/java/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/src/main/antlr/TP2/VSLParser.g" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/main/antlr/TP2/VSLParser.g" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/src/main/java/TP2/ASD.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/main/java/TP2/ASD.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,29 +34,29 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="g" value="1257" />
-          <entry key="java" value="1847" />
+          <entry key="g" value="1304" />
+          <entry key="java" value="1853" />
           <entry key="txt" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Glagol file" value="1257" />
-          <entry key="JAVA" value="1847" />
+          <entry key="Glagol file" value="1304" />
+          <entry key="JAVA" value="1853" />
           <entry key="PLAIN_TEXT" value="25" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.51313376">
+    <splitter split-orientation="horizontal" split-proportion="0.30360416">
       <split-first>
         <leaf>
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/ASD.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="547">
-                  <caret line="105" selection-start-line="105" selection-end-line="105" />
+                <state relative-caret-position="-135">
+                  <caret line="96" column="44" selection-start-line="96" selection-start-column="44" selection-end-line="96" selection-end-column="44" />
                   <folding>
                     <element signature="e#1953#1954#0" expanded="true" />
                     <element signature="e#1993#1994#0" expanded="true" />
@@ -85,11 +84,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/java/src/main/antlr/TP2/VSLParser.g">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+                <state relative-caret-position="255">
+                  <caret line="35" column="92" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="92" />
                 </state>
               </provider>
             </entry>
@@ -107,11 +106,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/Llvm.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="855">
-                  <caret line="107" column="36" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
+                <state relative-caret-position="182">
+                  <caret line="64" column="5" lean-forward="true" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
                   <folding>
                     <element signature="e#2570#2571#0" expanded="true" />
                     <element signature="e#2613#2614#0" expanded="true" />
@@ -233,7 +232,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542295477133" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542634475652" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -261,7 +260,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1542185457113</updated>
-      <workItem from="1542185470799" duration="30454000" />
+      <workItem from="1542185470799" duration="34289000" />
     </task>
     <task id="LOCAL-00001" summary="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs">
       <created>1542280568890</created>
@@ -274,7 +273,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30454000" />
+    <option name="totallyTimeSpent" value="34289000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
@@ -367,6 +366,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/Llvm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="64" column="5" lean-forward="true" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
+          <folding>
+            <element signature="e#2570#2571#0" expanded="true" />
+            <element signature="e#2613#2614#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2702#2703#0" expanded="true" />
+            <element signature="e#2525#2526#0" expanded="true" />
+            <element signature="e#2624#2625#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/ASD.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-105">
@@ -380,23 +394,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/java/src/main/antlr/TP2/VSLParser.g">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/Llvm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="107" column="36" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
-          <folding>
-            <element signature="e#2570#2571#0" expanded="true" />
-            <element signature="e#2613#2614#0" expanded="true" />
-            <element signature="e#2640#2641#0" expanded="true" />
-            <element signature="e#2702#2703#0" expanded="true" />
-            <element signature="e#2525#2526#0" expanded="true" />
-            <element signature="e#2624#2625#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="35" column="92" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="92" />
         </state>
       </provider>
     </entry>

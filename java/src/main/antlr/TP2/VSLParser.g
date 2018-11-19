@@ -27,6 +27,9 @@ bloc returns [ASD.Bloc out]
      LA ((a=affectation {ListAffectation.add($a.out);})* | (e=expression_basse {ListExpression.add($e.out);})*) RA { $out = new ASD.BlocExt(ListExpression,ListAffectation); }
      //Pas besoin de $ car c'est une variable synthétisée (qui existe que dans le code java) contrairement à e qui est une variable héritée
     ;
+instruction returns [ASD.Instruction out]
+    :
+    ;
 
 variable returns [ASD.Variable out]
     : {List<String> listVariable = new ArrayList<>();}
