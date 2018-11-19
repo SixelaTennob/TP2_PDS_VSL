@@ -7,105 +7,100 @@ import java.util.ArrayList;
 // and methods to generate its string representation
 
 public class Llvm {
-  static public class IR {
-    List<Instruction> header; // IR instructions to be placed before the code (global definitions)
-    List<Instruction> code;   // main code
+    static public class IR {
+        List<Instruction> header; // IR instructions to be placed before the code (global definitions)
+        List<Instruction> code;   // main code
 
-    public IR(List<Instruction> header, List<Instruction> code) {
-      this.header = header;
-      this.code = code;
+        public IR(List<Instruction> header, List<Instruction> code) {
+            this.header = header;
+            this.code = code;
+        }
+
+        // append an other IR
+        public IR append(IR other) {
+            header.addAll(other.header);
+            code.addAll(other.code);
+            return this;
+        }
+
+        // append a code instruction
+        public IR appendCode(Instruction inst) {
+            code.add(inst);
+            return this;
+        }
+
+        // append a code header
+        public IR appendHeader(Instruction inst) {
+            header.add(inst);
+            return this;
+        }
+
+        // Final string generation
+        public String toString() {
+            // This header describe to LLVM the target
+            // and declare the external function printf
+            StringBuilder r = new StringBuilder("; Target\n" +
+                    "target triple = \"x86_64-unknown-linux-gnu\"\n" +
+                    "; External declaration of the printf function\n" +
+                    "declare i32 @printf(i8* noalias nocapture, ...)\n" +
+                    "\n; Actual code begins\n\n");
+
+            for(Instruction inst: header)
+                r.append(inst);
+
+            r.append("\n\n");
+
+            // We create the function main
+            // TODO : remove this when you extend the language
+            r.append("define i32 @main() {\n");
+
+
+            for(Instruction inst: code)
+                r.append(inst);
+
+            // TODO : remove this when you extend the language
+            r.append("}\n");
+
+            return r.toString();
+        }
     }
 
-    // append an other IR
-    public IR append(IR other) {
-      header.addAll(other.header);
-      code.addAll(other.code);
-      return this;
+    // Returns a new empty list of instruction, handy
+    static public List<Instruction> empty() {
+        return new ArrayList<Instruction>();
     }
 
-    // append a code instruction
-    public IR appendCode(Instruction inst) {
-      code.add(inst);
-      return this;
+
+    // LLVM Types
+    static public abstract class Type {
+        public abstract String toString();
     }
 
-    // append a code header
-    public IR appendHeader(Instruction inst) {
-      header.add(inst);
-      return this;
+    static public class Int extends Type {
+        public String toString() {
+            return "i32";
+        }
     }
 
-    // Final string generation
-    public String toString() {
-      // This header describe to LLVM the target
-      // and declare the external function printf
-      StringBuilder r = new StringBuilder("; Target\n" +
-        "target triple = \"x86_64-unknown-linux-gnu\"\n" +
-        "; External declaration of the printf function\n" +
-        "declare i32 @printf(i8* noalias nocapture, ...)\n" +
-        "\n; Actual code begins\n\n");
-
-      for(Instruction inst: header)
-        r.append(inst);
-
-      r.append("\n\n");
-
-      // We create the function main
-      // TODO : remove this when you extend the language
-      r.append("define i32 @main() {\n");
+    // TODO : other types
 
 
-      for(Instruction inst: code)
-        r.append(inst);
-
-      // TODO : remove this when you extend the language
-      r.append("}\n");
-
-      return r.toString();
-    }
-  }
-
-  // Returns a new empty list of instruction, handy
-  static public List<Instruction> empty() {
-    return new ArrayList<Instruction>();
-  }
-
-
-  // LLVM Types
-  static public abstract class Type {
-    public abstract String toString();
-  }
-
-  static public class Int extends Type {
-    public String toString() {
-      return "i32";
-    }
-  }
-
-  // TODO : other types
-
-
-  // LLVM IR Instructions
-  static public abstract class Instruction {
-    public abstract String toString();
-  }
-
-    static public class accolGauche extends Instruction {
-        public String toString() { return "{"; }
-    }
-    static public class accolDroite extends Instruction {
-        public String toString() { return "}"; }
+    // LLVM IR Instructions
+    static public abstract class Instruction {
+        public abstract String toString();
     }
 
     static public class Variable extends Instruction{
-      String variable;
+        String variable;
+        Type type;
 
-      public Variable(String variable){
-          this.variable = variable;
-      }
+        public Variable(String variable, Type type){
+            this.variable = variable;
+            this .type = type;
+        }
 
         public String toString() {
-            return "%" + variable + " = alloca i32";
+            return "%" + variable + " = alloca " + type + "\n";
         }
     }
 
@@ -125,92 +120,91 @@ public class Llvm {
         }
     }
 
-  static public class Add extends Instruction {
-    Type type;
-    String left;
-    String right;
-    String lvalue;
+    static public class Add extends Instruction {
+        Type type;
+        String left;
+        String right;
+        String lvalue;
 
-    public Add(Type type, String left, String right, String lvalue) {
-      this.type = type;
-      this.left = left;
-      this.right = right;
-      this.lvalue = lvalue;
+        public Add(Type type, String left, String right, String lvalue) {
+            this.type = type;
+            this.left = left;
+            this.right = right;
+            this.lvalue = lvalue;
+        }
+
+        public String toString() {
+            return lvalue + " = add " + type + " " + left + ", " + right +  "\n";
+        }
     }
 
-    public String toString() {
-      return lvalue + " = add " + type + " " + left + ", " + right +  "\n";
-    }
-  }
-  
-  static public class Sub extends Instruction {
-	    Type type;
-	    String left;
-	    String right;
-	    String lvalue;
+    static public class Sub extends Instruction {
+        Type type;
+        String left;
+        String right;
+        String lvalue;
 
-	    public Sub(Type type, String left, String right, String lvalue) {
-	      this.type = type;
-	      this.left = left;
-	      this.right = right;
-	      this.lvalue = lvalue;
-	    }
+        public Sub(Type type, String left, String right, String lvalue) {
+            this.type = type;
+            this.left = left;
+            this.right = right;
+            this.lvalue = lvalue;
+        }
 
-	    public String toString() {
-	      return lvalue + " = sub " + type + " " + left + ", " + right +  "\n";
-	    }
-	  }
-
-  static public class Times extends Instruction {
-	    Type type;
-	    String left;
-	    String right;
-	    String lvalue;
-
-	    public Times(Type type, String left, String right, String lvalue) {
-	      this.type = type;
-	      this.left = left;
-	      this.right = right;
-	      this.lvalue = lvalue;
-	    }
-
-	    public String toString() {
-	      return lvalue + " = mul " + type + " " + left + ", " + right +  "\n";
-	    }
-	  }
-  
-  static public class Div extends Instruction {
-	    Type type;
-	    String left;
-	    String right;
-	    String lvalue;
-
-	    public Div(Type type, String left, String right, String lvalue) {
-	      this.type = type;
-	      this.left = left;
-	      this.right = right;
-	      this.lvalue = lvalue;
-	    }
-
-	    public String toString() {
-	      return lvalue + " = sdiv " + type + " " + left + ", " + right +  "\n";
-	    }
-	  }
-  
-  
-  static public class Return extends Instruction {
-    Type type;
-    String value;
-
-    public Return(Type type, String value) {
-      this.type = type;
-      this.value = value;
+        public String toString() {
+            return lvalue + " = sub " + type + " " + left + ", " + right +  "\n";
+        }
     }
 
-    public String toString() {
-      return "ret " + type + " " + value + "\n";
-    }
-  }
+    static public class Times extends Instruction {
+        Type type;
+        String left;
+        String right;
+        String lvalue;
 
-  // TODO : other instructions
+        public Times(Type type, String left, String right, String lvalue) {
+            this.type = type;
+            this.left = left;
+            this.right = right;
+            this.lvalue = lvalue;
+        }
+
+        public String toString() {
+            return lvalue + " = mul " + type + " " + left + ", " + right +  "\n";
+        }
+    }
+
+    static public class Div extends Instruction {
+        Type type;
+        String left;
+        String right;
+        String lvalue;
+
+        public Div(Type type, String left, String right, String lvalue) {
+            this.type = type;
+            this.left = left;
+            this.right = right;
+            this.lvalue = lvalue;
+        }
+
+        public String toString() {
+            return lvalue + " = sdiv " + type + " " + left + ", " + right +  "\n";
+        }
+    }
+
+    static public class Return extends Instruction {
+        Type type;
+        String value;
+
+        public Return(Type type, String value) {
+            this.type = type;
+            this.value = value;
+        }
+
+        public String toString() {
+            return "ret " + type + " " + value + "\n";
+        }
+    }
+
+    // TODO : other instructions
 }

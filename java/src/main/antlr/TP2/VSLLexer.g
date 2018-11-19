@@ -30,6 +30,7 @@ LA    : '{';
 RA    : '}';
 INT   : 'INT';
 VIR   : ',';
+RET   : 'RETURN';
 
 // TODO : other keywords
 

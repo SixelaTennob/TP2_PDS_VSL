@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67747cd9-ee75-4e1d-84a1-a22c8fed990f" name="Default Changelist" comment="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs">
+    <list default="true" id="67747cd9-ee75-4e1d-84a1-a22c8fed990f" name="Default Changelist" comment="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs&#10;               &#10;Début de la gestion des variables">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/src/main/antlr/TP2/VSLLexer.g" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/main/antlr/TP2/VSLLexer.g" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/src/main/antlr/TP2/VSLParser.g" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/main/antlr/TP2/VSLParser.g" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/src/main/java/TP2/ASD.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/main/java/TP2/ASD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/src/main/java/TP2/Llvm.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/main/java/TP2/Llvm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/text.ll" beforeDir="false" afterPath="$PROJECT_DIR$/tests/text.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/text.vsl" beforeDir="false" afterPath="$PROJECT_DIR$/tests/text.vsl" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,56 +21,81 @@
     <session id="-26510773">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.31" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.45" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="compile" value="1" />
           <entry key="g" value="4" />
-          <entry key="java" value="7" />
+          <entry key="java" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Glagol file" value="4" />
-          <entry key="JAVA" value="7" />
+          <entry key="JAVA" value="11" />
+          <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="g" value="1304" />
-          <entry key="java" value="1853" />
-          <entry key="txt" value="25" />
+          <entry key="g" value="2326" />
+          <entry key="java" value="2718" />
+          <entry key="txt" value="69" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Glagol file" value="1304" />
-          <entry key="JAVA" value="1853" />
-          <entry key="PLAIN_TEXT" value="25" />
+          <entry key="Glagol file" value="2326" />
+          <entry key="JAVA" value="2718" />
+          <entry key="PLAIN_TEXT" value="69" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.30360416">
+    <splitter split-orientation="horizontal" split-proportion="0.40733945">
       <split-first>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/ASD.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-135">
-                  <caret line="96" column="44" selection-start-line="96" selection-start-column="44" selection-end-line="96" selection-end-column="44" />
+                <state relative-caret-position="315">
+                  <caret line="21" column="57" selection-start-line="21" selection-start-column="57" selection-end-line="21" selection-end-column="57" />
                   <folding>
-                    <element signature="e#1953#1954#0" expanded="true" />
-                    <element signature="e#1993#1994#0" expanded="true" />
-                    <element signature="e#3313#3314#0" expanded="true" />
-                    <element signature="e#3369#3370#0" expanded="true" />
-                    <element signature="e#3533#3534#0" expanded="true" />
-                    <element signature="e#3589#3590#0" expanded="true" />
-                    <element signature="e#1858#1859#0" expanded="true" />
-                    <element signature="e#1921#1922#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#286#287#0" expanded="true" />
+                    <element signature="e#320#321#0" expanded="true" />
+                    <element signature="e#376#377#0" expanded="true" />
+                    <element signature="e#413#414#0" expanded="true" />
+                    <element signature="e#2186#2187#0" expanded="true" />
+                    <element signature="e#2230#2231#0" expanded="true" />
+                    <element signature="e#1972#1973#0" expanded="true" />
+                    <element signature="e#2028#2029#0" expanded="true" />
+                    <element signature="e#3052#3053#0" expanded="true" />
+                    <element signature="e#3109#3110#0" expanded="true" />
+                    <element signature="e#3705#3706#0" expanded="true" />
+                    <element signature="e#3778#3779#0" expanded="true" />
+                    <element signature="e#5248#5249#0" expanded="true" />
+                    <element signature="e#5321#5322#0" expanded="true" />
+                    <element signature="e#6798#6799#0" expanded="true" />
+                    <element signature="e#6871#6872#0" expanded="true" />
+                    <element signature="e#8348#8349#0" expanded="true" />
+                    <element signature="e#8421#8422#0" expanded="true" />
+                    <element signature="e#3538#3539#0" expanded="true" />
+                    <element signature="e#3580#3581#0" expanded="true" />
+                    <element signature="e#3610#3611#0" expanded="true" />
+                    <element signature="e#3651#3652#0" expanded="true" />
+                    <element signature="e#4200#4201#0" expanded="true" />
+                    <element signature="e#4236#4237#0" expanded="true" />
+                    <element signature="e#4291#4292#0" expanded="true" />
+                    <element signature="e#4340#4341#0" expanded="true" />
+                    <element signature="e#4381#4382#0" expanded="true" />
+                    <element signature="e#4426#4427#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -74,12 +104,21 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/java/src/main/antlr/TP2/VSLLexer.g">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="465">
-                  <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+                <state relative-caret-position="420">
+                  <caret line="28" column="12" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/Main.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="218">
+                  <caret line="38" selection-start-line="38" selection-end-line="38" />
                 </state>
               </provider>
             </entry>
@@ -87,8 +126,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/java/src/main/antlr/TP2/VSLParser.g">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="35" column="92" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="92" />
+                <state relative-caret-position="227">
+                  <caret line="25" column="51" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="51" />
                 </state>
               </provider>
             </entry>
@@ -96,11 +135,38 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/ASD.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-105">
-                  <caret line="84" column="46" selection-start-line="84" selection-start-column="46" selection-end-line="84" selection-end-column="46" />
+                <state relative-caret-position="1192">
+                  <caret line="90" column="5" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
                   <folding>
-                    <element signature="e#2537#2538#0" expanded="true" />
-                    <element signature="e#2581#2582#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#288#289#0" expanded="true" />
+                    <element signature="e#322#323#0" expanded="true" />
+                    <element signature="e#378#379#0" expanded="true" />
+                    <element signature="e#415#416#0" expanded="true" />
+                    <element signature="e#2186#2187#0" expanded="true" />
+                    <element signature="e#2230#2231#0" expanded="true" />
+                    <element signature="e#1972#1973#0" expanded="true" />
+                    <element signature="e#2028#2029#0" expanded="true" />
+                    <element signature="e#3052#3053#0" expanded="true" />
+                    <element signature="e#3109#3110#0" expanded="true" />
+                    <element signature="e#2181#2182#0" expanded="true" />
+                    <element signature="e#2254#2255#0" expanded="true" />
+                    <element signature="e#3724#3725#0" expanded="true" />
+                    <element signature="e#3797#3798#0" expanded="true" />
+                    <element signature="e#5274#5275#0" expanded="true" />
+                    <element signature="e#5347#5348#0" expanded="true" />
+                    <element signature="e#6824#6825#0" expanded="true" />
+                    <element signature="e#6897#6898#0" expanded="true" />
+                    <element signature="e#8201#8202#0" expanded="true" />
+                    <element signature="e#8243#8244#0" expanded="true" />
+                    <element signature="e#8273#8274#0" expanded="true" />
+                    <element signature="e#8314#8315#0" expanded="true" />
+                    <element signature="e#8865#8866#0" expanded="true" />
+                    <element signature="e#8901#8902#0" expanded="true" />
+                    <element signature="e#8956#8957#0" expanded="true" />
+                    <element signature="e#9005#9006#0" expanded="true" />
+                    <element signature="e#9046#9047#0" expanded="true" />
+                    <element signature="e#9091#9092#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -109,15 +175,28 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/Llvm.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="182">
-                  <caret line="64" column="5" lean-forward="true" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
+                <state relative-caret-position="322">
+                  <caret line="98" column="30" selection-start-line="98" selection-start-column="30" selection-end-line="98" selection-end-column="30" />
                   <folding>
-                    <element signature="e#2570#2571#0" expanded="true" />
-                    <element signature="e#2613#2614#0" expanded="true" />
-                    <element signature="e#2640#2641#0" expanded="true" />
-                    <element signature="e#2702#2703#0" expanded="true" />
-                    <element signature="e#2525#2526#0" expanded="true" />
-                    <element signature="e#2624#2625#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#2088#2089#0" expanded="true" />
+                    <element signature="e#2139#2140#0" expanded="true" />
+                    <element signature="e#2327#2328#0" expanded="true" />
+                    <element signature="e#2363#2364#0" expanded="true" />
+                    <element signature="e#2790#2791#0" expanded="true" />
+                    <element signature="e#2864#2865#0" expanded="true" />
+                    <element signature="e#3181#3182#0" expanded="true" />
+                    <element signature="e#3279#3280#0" expanded="true" />
+                    <element signature="e#2905#2906#0" expanded="true" />
+                    <element signature="e#2997#2998#0" expanded="true" />
+                    <element signature="e#3386#3387#0" expanded="true" />
+                    <element signature="e#3478#3479#0" expanded="true" />
+                    <element signature="e#3871#3872#0" expanded="true" />
+                    <element signature="e#3963#3964#0" expanded="true" />
+                    <element signature="e#4352#4353#0" expanded="true" />
+                    <element signature="e#4445#4446#0" expanded="true" />
+                    <element signature="e#3256#3257#0" expanded="true" />
+                    <element signature="e#3321#3322#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -130,7 +209,13 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>emp</find>
+      <find>Expression</find>
+      <find>Retur</find>
+      <find>retur</find>
     </findStrings>
+    <replaceStrings>
+      <replace>Instruction</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -140,8 +225,8 @@
       <list>
         <option value="$PROJECT_DIR$/java/src/main/antlr/TP2/VSLLexer.g" />
         <option value="$PROJECT_DIR$/java/src/main/java/TP2/Llvm.java" />
-        <option value="$PROJECT_DIR$/java/src/main/java/TP2/ASD.java" />
         <option value="$PROJECT_DIR$/java/src/main/antlr/TP2/VSLParser.g" />
+        <option value="$PROJECT_DIR$/java/src/main/java/TP2/ASD.java" />
       </list>
     </option>
   </component>
@@ -162,7 +247,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -226,14 +310,15 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542634475652" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542659147147" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/java/build/libs/TP2.jar" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
@@ -250,6 +335,15 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="JarApplication" factoryName="JAR Application">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/java/build/libs/TP2.jar" />
+      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/tests/text.vsl" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -260,7 +354,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1542185457113</updated>
-      <workItem from="1542185470799" duration="34289000" />
+      <workItem from="1542185470799" duration="54278000" />
+      <workItem from="1542659364261" duration="5652000" />
     </task>
     <task id="LOCAL-00001" summary="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs">
       <created>1542280568890</created>
@@ -269,73 +364,81 @@
       <option name="project" value="LOCAL" />
       <updated>1542280568890</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs&#10;               &#10;Début de la gestion des variables">
+      <created>1542634617676</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1542634617676</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34289000" />
+    <option name="totallyTimeSpent" value="59930000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12646745" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12753469" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" weight="0.32972974" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" sideWeight="0.4994664" visible="true" weight="0.35243243" />
-      <window_info anchor="bottom" id="Event Log" sideWeight="0.50053364" side_tool="true" weight="0.24" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32972974" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.4994664" visible="true" weight="0.35243243" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053364" side_tool="true" weight="0.35243243" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32972974" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
     </layout>
     <layout-to-restore>
-      <window_info id="Image Layers" order="0" />
-      <window_info id="Designer" order="1" />
-      <window_info id="UI Designer" order="2" />
-      <window_info id="Capture Tool" order="3" />
-      <window_info id="Favorites" order="4" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.2497332" />
-      <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="1" />
-      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="3" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="right" id="Palette" order="0" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Theme Preview" order="2" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="right" id="Database" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12753469" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32972974" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4994664" weight="0.35243243" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053364" side_tool="true" weight="0.35243243" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32972974" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,12 +449,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs" />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs" />
+    <MESSAGE value="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs&#10;               &#10;Début de la gestion des variables" />
+    <option name="LAST_COMMIT_MESSAGE" value="First commit : —  Les expressions simples&#10;               —  L’instruction d’affectation&#10;               —  La gestion des blocs&#10;               &#10;Début de la gestion des variables" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/Main.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/SymbolTable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1245">
@@ -359,43 +460,107 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/java/compile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar:///usr/java/jdk-10.0.2/lib/src.zip!/java.base/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/java/jdk-10.0.2/lib/src.zip!/java.base/java/lang/ClassLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="498" selection-start-line="498" selection-end-line="498" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/java/src/main/antlr/TP2/VSLLexer.g">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+        <state relative-caret-position="420">
+          <caret line="28" column="12" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/Llvm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="64" column="5" lean-forward="true" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
+        <state relative-caret-position="322">
+          <caret line="98" column="30" selection-start-line="98" selection-start-column="30" selection-end-line="98" selection-end-column="30" />
           <folding>
-            <element signature="e#2570#2571#0" expanded="true" />
-            <element signature="e#2613#2614#0" expanded="true" />
-            <element signature="e#2640#2641#0" expanded="true" />
-            <element signature="e#2702#2703#0" expanded="true" />
-            <element signature="e#2525#2526#0" expanded="true" />
-            <element signature="e#2624#2625#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2088#2089#0" expanded="true" />
+            <element signature="e#2139#2140#0" expanded="true" />
+            <element signature="e#2327#2328#0" expanded="true" />
+            <element signature="e#2363#2364#0" expanded="true" />
+            <element signature="e#2790#2791#0" expanded="true" />
+            <element signature="e#2864#2865#0" expanded="true" />
+            <element signature="e#3181#3182#0" expanded="true" />
+            <element signature="e#3279#3280#0" expanded="true" />
+            <element signature="e#2905#2906#0" expanded="true" />
+            <element signature="e#2997#2998#0" expanded="true" />
+            <element signature="e#3386#3387#0" expanded="true" />
+            <element signature="e#3478#3479#0" expanded="true" />
+            <element signature="e#3871#3872#0" expanded="true" />
+            <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4352#4353#0" expanded="true" />
+            <element signature="e#4445#4446#0" expanded="true" />
+            <element signature="e#3256#3257#0" expanded="true" />
+            <element signature="e#3321#3322#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/java/src/main/java/TP2/ASD.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-105">
-          <caret line="84" column="46" selection-start-line="84" selection-start-column="46" selection-end-line="84" selection-end-column="46" />
+        <state relative-caret-position="1192">
+          <caret line="90" column="5" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
           <folding>
-            <element signature="e#2537#2538#0" expanded="true" />
-            <element signature="e#2581#2582#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#288#289#0" expanded="true" />
+            <element signature="e#322#323#0" expanded="true" />
+            <element signature="e#378#379#0" expanded="true" />
+            <element signature="e#415#416#0" expanded="true" />
+            <element signature="e#2186#2187#0" expanded="true" />
+            <element signature="e#2230#2231#0" expanded="true" />
+            <element signature="e#1972#1973#0" expanded="true" />
+            <element signature="e#2028#2029#0" expanded="true" />
+            <element signature="e#3052#3053#0" expanded="true" />
+            <element signature="e#3109#3110#0" expanded="true" />
+            <element signature="e#2181#2182#0" expanded="true" />
+            <element signature="e#2254#2255#0" expanded="true" />
+            <element signature="e#3724#3725#0" expanded="true" />
+            <element signature="e#3797#3798#0" expanded="true" />
+            <element signature="e#5274#5275#0" expanded="true" />
+            <element signature="e#5347#5348#0" expanded="true" />
+            <element signature="e#6824#6825#0" expanded="true" />
+            <element signature="e#6897#6898#0" expanded="true" />
+            <element signature="e#8201#8202#0" expanded="true" />
+            <element signature="e#8243#8244#0" expanded="true" />
+            <element signature="e#8273#8274#0" expanded="true" />
+            <element signature="e#8314#8315#0" expanded="true" />
+            <element signature="e#8865#8866#0" expanded="true" />
+            <element signature="e#8901#8902#0" expanded="true" />
+            <element signature="e#8956#8957#0" expanded="true" />
+            <element signature="e#9005#9006#0" expanded="true" />
+            <element signature="e#9046#9047#0" expanded="true" />
+            <element signature="e#9091#9092#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/java/src/main/antlr/TP2/VSLParser.g">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="35" column="92" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="92" />
+        <state relative-caret-position="227">
+          <caret line="25" column="51" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="51" />
         </state>
       </provider>
     </entry>

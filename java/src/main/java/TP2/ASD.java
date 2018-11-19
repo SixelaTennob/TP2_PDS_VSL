@@ -5,34 +5,30 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class ASD {
-	static public class Program {
-		//Expression e; // What a program contains. TODO : change when you extend the language
-        Bloc e;
-		public Program(Bloc e) {
-			this.e = e;
-		}
+    static public class Program {
+        Bloc e; // What a program contains. TODO : change when you extend the language
 
-		// Pretty-printer
-		public String pp() {
-			return e.pp();
-		}
+        public Program(Bloc e) {
+            this.e = e;
+        }
 
-		// IR generation
-		public Llvm.IR toIR() throws TypeException {
-			// TODO : change when you extend the language
+        // Pretty-printer
+        public String pp() {
+            return e.pp();
+        }
 
-			// computes the IR of the expression
-			// add a return instruction
-			//Llvm.Instruction ret = new Llvm.Return(retExpr.type.toLlvmType(), retExpr.result);
-			//retExpr.ir.appendCode(ret);
+        // IR generation
+        public Llvm.IR toIR() throws TypeException {
+            // TODO : change when you extend the language
+            return e.toIR().ir;
+        }
+    }
 
-			return e.toIR().ir;
-		}
-	}
+    // All toIR methods returns the IR, plus extra information (synthesized attributes)
+    // They can take extra arguments (inherited attributes)
 
     static public abstract class Instruction {
         public abstract String pp();
-
         public abstract RetInstruction toIR() throws TypeException;
 
         // Object returned by toIR on expressions, with IR + synthesized attributes
@@ -51,7 +47,6 @@ public class ASD {
             }
         }
     }
-
 
     static public abstract class Bloc {
         public abstract String pp();
@@ -72,56 +67,30 @@ public class ASD {
 
 
     static public class BlocExt extends Bloc {
-        List<Expression> listExpression;
-        List<Affectation> listAffectation;
+        List<Instruction> listInstruction;
 
-        public BlocExt(List<Expression> listExpression,List<Affectation> listAffectation) {
-            this.listAffectation = listAffectation;
-            this.listExpression = listExpression;
+        public BlocExt(List<Instruction> listInstruction) {
+
+            this.listInstruction = listInstruction;
         }
         // Pretty-printer
         public String pp() {
             String s="{";
-            for(Expression e :listExpression){
-                s +=e.pp();
-            }
-            for(Affectation a :listAffectation){
-                s+=a.pp();
+            for(Instruction i :listInstruction){
+                s +=i.pp();
             }
             return s + "}";
         }
-
         public RetBloc toIR() throws TypeException {
             Llvm.IR blocIR = new Llvm.IR(Llvm.empty(),Llvm.empty());
-            for(Expression e :listExpression){
-                 blocIR.append(e.toIR().ir);
-            }
-            for(Affectation a :listAffectation){
-                blocIR.append(a.toIR().ir);
+            for(Instruction i :listInstruction){
+                blocIR.append(i.toIR().ir);
             }
             return new RetBloc(blocIR);
         }
     }
 
-
-    static public abstract class Variable {
-        public abstract String pp();
-
-        public abstract RetVariable toIR() throws TypeException;
-
-
-        // Object returned by toIR on expressions, with IR + synthesized attributes
-        static public class RetVariable {
-
-            public String variable;
-
-            public RetVariable(String variable) {
-                this.variable = variable;
-            }
-        }
-    }
-
-    static public class VariableExt extends Variable {
+    static public class VariableExt extends Instruction {
         List<String> listVariable;
 
         public VariableExt (List<String> listVariable){
@@ -131,27 +100,31 @@ public class ASD {
         //Pretty Printer
         public String pp() {
             String decl="INT";
+            int i =1;
             for(String e :listVariable){
-                decl +=e +",";
+                if(i!=listVariable.size()){
+                    decl = e +",";
+                }else decl = e;
             }
             return decl;
         }
 
-        public RetVariable toIR() throws TypeException {
-            String ret="";
-            for(String e :listVariable){
-                Llvm.Instruction var = new Llvm.Variable(e);
-                ret +=e;
+        public RetInstruction toIR() throws TypeException {
+            Type tp = new Int();
+            Llvm.IR VariableIR = new Llvm.IR(Llvm.empty(),Llvm.empty());
+            for(String v :listVariable){
+                Llvm.Instruction var = new Llvm.Variable(v,tp.toLlvmType());
+                VariableIR.appendCode(var);
             }
-            return new RetVariable(ret);
+            return new RetInstruction(VariableIR,tp,null);
         }
     }
 
-	static public class Affectation extends Instruction {
-	    String left;
-	    Expression right;
+    static public class Affectation extends Instruction {
+        String left;
+        Instruction right;
 
-        public Affectation(String left, Expression right) {
+        public Affectation(String left, Instruction right) {
             this.left = left;
             this.right = right;
         }
@@ -162,7 +135,7 @@ public class ASD {
         }
         // IR generation
         public RetInstruction toIR() throws TypeException {
-            Expression.RetExpression rightRet = right.toIR();
+            Instruction.RetInstruction rightRet = right.toIR();
             Llvm.Instruction aff = new Llvm.Aff(rightRet.type.toLlvmType(),left,rightRet.result);
             rightRet.ir.appendCode(aff);
             return new RetInstruction(rightRet.ir,rightRet.type,left);
@@ -170,244 +143,218 @@ public class ASD {
 
     }
 
-	static public abstract class Expression {
-		public abstract String pp();
+    // Concrete class for Expression: add case
+    static public class AddExpression extends Instruction {
+        Instruction left;
+        Instruction right;
 
-		public abstract RetExpression toIR() throws TypeException;
+        public AddExpression(Instruction left, Instruction right) {
+            this.left = left;
+            this.right = right;
+        }
 
-		// Object returned by toIR on expressions, with IR + synthesized attributes
-		static public class RetExpression {
-			// The LLVM IR:
-			public Llvm.IR ir;
-			// And additional stuff:
-			public Type type; // The type of the expression
-			public String result; // The name containing the expression's result
-			// (either an identifier, or an immediate value)
+        // Pretty-printer
+        public String pp() {
+            return "(" + left.pp() + " + " + right.pp() + ")";
+        }
 
-			public RetExpression(Llvm.IR ir, Type type, String result) {
-				this.ir = ir;
-				this.type = type;
-				this.result = result;
-			}
-		}
-	}
+        // IR generation
+        public RetInstruction toIR() throws TypeException {
+            RetInstruction leftRet = left.toIR();
+            RetInstruction rightRet = right.toIR();
+
+            // We check if the types mismatches
+            if (!leftRet.type.equals(rightRet.type)) {
+                throw new TypeException("type mismatch: have " + leftRet.type + " and " + rightRet.type);
+            }
+
+            // We base our build on the left generated IR:
+            // append right code
+            leftRet.ir.append(rightRet.ir);
+
+            // allocate a new identifier for the result
+            String result = Utils.newtmp();
+
+            // new add instruction result = left + right
+            Llvm.Instruction add = new Llvm.Add(leftRet.type.toLlvmType(), leftRet.result, rightRet.result, result);
+
+            // append this instruction
+            leftRet.ir.appendCode(add);
+
+            // return the generated IR, plus the type of this expression
+            // and where to find its result
+            return new RetInstruction(leftRet.ir, leftRet.type, result);
+        }
+    }
+
+    //Concrete class for Instruction: sub case
+    static public class SubExpression extends Instruction {
+        Instruction left;
+        Instruction right;
+
+        public SubExpression(Instruction left, Instruction right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        // Pretty-printer
+        public String pp() {
+            return "(" + left.pp() + " - " + right.pp() + ")";
+        }
+
+        // IR generation
+        public RetInstruction toIR() throws TypeException {
+            RetInstruction leftRet = left.toIR();
+            RetInstruction rightRet = right.toIR();
+
+            // We check if the types mismatches
+            if (!leftRet.type.equals(rightRet.type)) {
+                throw new TypeException("type mismatch: have " + leftRet.type + " and " + rightRet.type);
+            }
+
+            // We base our build on the left generated IR:
+            // append right code
+            leftRet.ir.append(rightRet.ir);
+
+            // allocate a new identifier for the result
+            String result = Utils.newtmp();
+
+            // new add instruction result = left - right
+            Llvm.Instruction sub = new Llvm.Sub(leftRet.type.toLlvmType(), leftRet.result, rightRet.result, result);
+
+            // append this instruction
+            leftRet.ir.appendCode(sub);
+
+            // return the generated IR, plus the type of this Instruction
+            // and where to find its result
+            return new RetInstruction(leftRet.ir, leftRet.type, result);
+        }
+    }
+
+    //Concrete class for Instruction: Times case
+    static public class TimesExpression extends Instruction {
+        Instruction left;
+        Instruction right;
+
+        public TimesExpression(Instruction left, Instruction right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        // Pretty-printer
+        public String pp() {
+            return "(" + left.pp() + " * " + right.pp() + ")";
+        }
+
+        // IR generation
+        public RetInstruction toIR() throws TypeException {
+            RetInstruction leftRet = left.toIR();
+            RetInstruction rightRet = right.toIR();
+
+            // We check if the types mismatches
+            if (!leftRet.type.equals(rightRet.type)) {
+                throw new TypeException("type mismatch: have " + leftRet.type + " and " + rightRet.type);
+            }
+
+            // We base our build on the left generated IR:
+            // append right code
+            leftRet.ir.append(rightRet.ir);
+
+            // allocate a new identifier for the result
+            String result = Utils.newtmp();
+
+            // new add instruction result = left + right
+            Llvm.Instruction times = new Llvm.Times(leftRet.type.toLlvmType(), leftRet.result, rightRet.result, result);
+
+            // append this instruction
+            leftRet.ir.appendCode(times);
+
+            // return the generated IR, plus the type of this Expression
+            // and where to find its result
+            return new RetInstruction(leftRet.ir, leftRet.type, result);
+        }
+    }
 
 
-	// Concrete class for Expression: add case
-	static public class AddExpression extends Expression {
-		Expression left;
-		Expression right;
+    //Concrete class for Instruction: Div case
+    static public class DivExpression extends Instruction {
+        Instruction left;
+        Instruction right;
 
-		public AddExpression(Expression left, Expression right) {
-			this.left = left;
-			this.right = right;
-		}
+        public DivExpression(Instruction left, Instruction right) {
+            this.left = left;
+            this.right = right;
+        }
 
-		// Pretty-printer
-		public String pp() {
-			return "(" + left.pp() + " + " + right.pp() + ")";
-		}
+        // Pretty-printer
+        public String pp() {
+            return "(" + left.pp() + " / " + right.pp() + ")";
+        }
 
-		// IR generation
-		public RetExpression toIR() throws TypeException {
-			RetExpression leftRet = left.toIR();
-			RetExpression rightRet = right.toIR();
+        // IR generation
+        public RetInstruction toIR() throws TypeException {
+            RetInstruction leftRet = left.toIR();
+            RetInstruction rightRet = right.toIR();
 
-			// We check if the types mismatches
-			if (!leftRet.type.equals(rightRet.type)) {
-				throw new TypeException("type mismatch: have " + leftRet.type + " and " + rightRet.type);
-			}
+            // We check if the types mismatches
+            if (!leftRet.type.equals(rightRet.type)) {
+                throw new TypeException("type mismatch: have " + leftRet.type + " and " + rightRet.type);
+            }
 
-			// We base our build on the left generated IR:
-			// append right code
-			leftRet.ir.append(rightRet.ir);
+            // We base our build on the left generated IR:
+            // append right code
+            leftRet.ir.append(rightRet.ir);
 
-			// allocate a new identifier for the result
-			String result = Utils.newtmp();
+            // allocate a new identifier for the result
+            String result = Utils.newtmp();
 
-			// new add instruction result = left + right
-			Llvm.Instruction add = new Llvm.Add(leftRet.type.toLlvmType(), leftRet.result, rightRet.result, result);
+            // new add instruction result = left + right
+            Llvm.Instruction div = new Llvm.Div(leftRet.type.toLlvmType(), leftRet.result, rightRet.result, result);
 
-			// append this instruction
-			leftRet.ir.appendCode(add);
+            // append this instruction
+            leftRet.ir.appendCode(div);
 
-			// return the generated IR, plus the type of this expression
-			// and where to find its result
-			return new RetExpression(leftRet.ir, leftRet.type, result);
-		}
-	}
+            // return the generated IR, plus the type of this expression
+            // and where to find its result
+            return new RetInstruction(leftRet.ir, leftRet.type, result);
+        }
+    }
 
-//Concrete class for Expression: sub case
-	static public class SubExpression extends Expression {
-		Expression left;
-		Expression right;
+    // Concrete class for Expression: constant (integer) case
+    static public class IntegerExpression extends Instruction {
+        int value;
+        public IntegerExpression(int value) {
+            this.value = value;
+        }
 
-		public SubExpression(Expression left, Expression right) {
-			this.left = left;
-			this.right = right;
-		}
+        public String pp() {
+            return "" + value;
+        }
 
-		// Pretty-printer
-		public String pp() {
-			return "(" + left.pp() + " - " + right.pp() + ")";
-		}
+        public RetInstruction toIR() {
+            // Here we simply return an empty IR
+            // the `result' of this expression is the integer itself (as string)
+            return new RetInstruction(new Llvm.IR(Llvm.empty(), Llvm.empty()), new Int(), "" + value);
+        }
+    }
 
-		// IR generation
-		public RetExpression toIR() throws TypeException {
-			RetExpression leftRet = left.toIR();
-			RetExpression rightRet = right.toIR();
+    // Warning: this is the type from VSL+, not the LLVM types!
+    static public abstract class Type {
+        public abstract String pp();
+        public abstract Llvm.Type toLlvmType();
+    }
 
-			// We check if the types mismatches
-			if (!leftRet.type.equals(rightRet.type)) {
-				throw new TypeException("type mismatch: have " + leftRet.type + " and " + rightRet.type);
-			}
+    static class Int extends Type {
+        public String pp() {
+            return "INT";
+        }
 
-			// We base our build on the left generated IR:
-			// append right code
-			leftRet.ir.append(rightRet.ir);
+        @Override public boolean equals(Object obj) {
+            return obj instanceof Int;
+        }
 
-			// allocate a new identifier for the result
-			String result = Utils.newtmp();
-
-			// new add instruction result = left - right
-			Llvm.Instruction sub = new Llvm.Sub(leftRet.type.toLlvmType(), leftRet.result, rightRet.result, result);
-
-			// append this instruction
-			leftRet.ir.appendCode(sub);
-
-			// return the generated IR, plus the type of this expression
-			// and where to find its result
-			return new RetExpression(leftRet.ir, leftRet.type, result);
-		}
-	}
-
-	//Concrete class for Expression: Times case
-	static public class TimesExpression extends Expression {
-		Expression left;
-		Expression right;
-
-		public TimesExpression(Expression left, Expression right) {
-			this.left = left;
-			this.right = right;
-		}
-
-		// Pretty-printer
-		public String pp() {
-			return "(" + left.pp() + " * " + right.pp() + ")";
-		}
-
-		// IR generation
-		public RetExpression toIR() throws TypeException {
-			RetExpression leftRet = left.toIR();
-			RetExpression rightRet = right.toIR();
-
-			// We check if the types mismatches
-			if (!leftRet.type.equals(rightRet.type)) {
-				throw new TypeException("type mismatch: have " + leftRet.type + " and " + rightRet.type);
-			}
-
-			// We base our build on the left generated IR:
-			// append right code
-			leftRet.ir.append(rightRet.ir);
-
-			// allocate a new identifier for the result
-			String result = Utils.newtmp();
-
-			// new add instruction result = left + right
-			Llvm.Instruction times = new Llvm.Times(leftRet.type.toLlvmType(), leftRet.result, rightRet.result, result);
-
-			// append this instruction
-			leftRet.ir.appendCode(times);
-
-			// return the generated IR, plus the type of this expression
-			// and where to find its result
-			return new RetExpression(leftRet.ir, leftRet.type, result);
-		}
-	}
-	
-	
-	//Concrete class for Expression: Div case
-		static public class DivExpression extends Expression {
-			Expression left;
-			Expression right;
-
-			public DivExpression(Expression left, Expression right) {
-				this.left = left;
-				this.right = right;
-			}
-
-			// Pretty-printer
-			public String pp() {
-				return "(" + left.pp() + " / " + right.pp() + ")";
-			}
-
-			// IR generation
-			public RetExpression toIR() throws TypeException {
-				RetExpression leftRet = left.toIR();
-				RetExpression rightRet = right.toIR();
-
-				// We check if the types mismatches
-				if (!leftRet.type.equals(rightRet.type)) {
-					throw new TypeException("type mismatch: have " + leftRet.type + " and " + rightRet.type);
-				}
-
-				// We base our build on the left generated IR:
-				// append right code
-				leftRet.ir.append(rightRet.ir);
-
-				// allocate a new identifier for the result
-				String result = Utils.newtmp();
-
-				// new add instruction result = left + right
-				Llvm.Instruction div = new Llvm.Div(leftRet.type.toLlvmType(), leftRet.result, rightRet.result, result);
-
-				// append this instruction
-				leftRet.ir.appendCode(div);
-
-				// return the generated IR, plus the type of this expression
-				// and where to find its result
-				return new RetExpression(leftRet.ir, leftRet.type, result);
-			}
-		}
-
-	// Concrete class for Expression: constant (integer) case
-	static public class IntegerExpression extends Expression {
-		int value;
-
-		public IntegerExpression(int value) {
-			this.value = value;
-		}
-
-		public String pp() {
-			return "" + value;
-		}
-
-		public RetExpression toIR() {
-			// Here we simply return an empty IR
-			// the `result' of this expression is the integer itself (as string)
-			return new RetExpression(new Llvm.IR(Llvm.empty(), Llvm.empty()), new Int(), "" + value);
-		}
-	}
-
-	// Warning: this is the type from VSL+, not the LLVM types!
-	static public abstract class Type {
-		public abstract String pp();
-
-		public abstract Llvm.Type toLlvmType();
-	}
-
-	static class Int extends Type {
-		public String pp() {
-			return "INT";
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			return obj instanceof Int;
-		}
-
-		public Llvm.Type toLlvmType() {
-			return new Llvm.Int();
-		}
-	}
+        public Llvm.Type toLlvmType() {
+            return new Llvm.Int();
+        }
+    }
 }
