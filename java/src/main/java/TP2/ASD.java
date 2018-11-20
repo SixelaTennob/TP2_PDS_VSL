@@ -29,6 +29,7 @@ public class ASD {
 
     static public abstract class Instruction {
         public abstract String pp();
+
         public abstract RetInstruction toIR() throws TypeException;
 
         // Object returned by toIR on expressions, with IR + synthesized attributes
@@ -73,17 +74,19 @@ public class ASD {
 
             this.listInstruction = listInstruction;
         }
+
         // Pretty-printer
         public String pp() {
-            String s="{";
-            for(Instruction i :listInstruction){
-                s +=i.pp();
+            String s = "{";
+            for (Instruction i : listInstruction) {
+                s += i.pp();
             }
             return s + "}";
         }
+
         public RetBloc toIR() throws TypeException {
-            Llvm.IR blocIR = new Llvm.IR(Llvm.empty(),Llvm.empty());
-            for(Instruction i :listInstruction){
+            Llvm.IR blocIR = new Llvm.IR(Llvm.empty(), Llvm.empty());
+            for (Instruction i : listInstruction) {
                 blocIR.append(i.toIR().ir);
             }
             return new RetBloc(blocIR);
@@ -93,30 +96,30 @@ public class ASD {
     static public class VariableExt extends Instruction {
         List<String> listVariable;
 
-        public VariableExt (List<String> listVariable){
+        public VariableExt(List<String> listVariable) {
             this.listVariable = listVariable;
         }
 
         //Pretty Printer
         public String pp() {
-            String decl="INT";
-            int i =1;
-            for(String e :listVariable){
-                if(i!=listVariable.size()){
-                    decl = e +",";
-                }else decl = e;
+            String decl = "INT";
+            int i = 1;
+            for (String e : listVariable) {
+                if (i != listVariable.size()) {
+                    decl = e + ",";
+                } else decl = e;
             }
             return decl;
         }
 
         public RetInstruction toIR() throws TypeException {
             Type tp = new Int();
-            Llvm.IR VariableIR = new Llvm.IR(Llvm.empty(),Llvm.empty());
-            for(String v :listVariable){
-                Llvm.Instruction var = new Llvm.Variable(v,tp.toLlvmType());
+            Llvm.IR VariableIR = new Llvm.IR(Llvm.empty(), Llvm.empty());
+            for (String v : listVariable) {
+                Llvm.Instruction var = new Llvm.Variable(v, tp.toLlvmType());
                 VariableIR.appendCode(var);
             }
-            return new RetInstruction(VariableIR,tp,null);
+            return new RetInstruction(VariableIR, tp, null);
         }
     }
 
@@ -133,12 +136,13 @@ public class ASD {
         public String pp() {
             return left + " := " + right.pp();
         }
+
         // IR generation
         public RetInstruction toIR() throws TypeException {
             Instruction.RetInstruction rightRet = right.toIR();
-            Llvm.Instruction aff = new Llvm.Aff(rightRet.type.toLlvmType(),left,rightRet.result);
+            Llvm.Instruction aff = new Llvm.Aff(rightRet.type.toLlvmType(), left, rightRet.result);
             rightRet.ir.appendCode(aff);
-            return new RetInstruction(rightRet.ir,rightRet.type,left);
+            return new RetInstruction(rightRet.ir, rightRet.type, left);
         }
 
     }
@@ -320,10 +324,10 @@ public class ASD {
         }
     }
 
-    static public class Retourne extends Instruction{
+    static public class Retourne extends Instruction {
         Instruction expression;
 
-        public Retourne (Instruction expression){
+        public Retourne(Instruction expression) {
 
             this.expression = expression;
         }
@@ -338,13 +342,14 @@ public class ASD {
             Instruction.RetInstruction expr = expression.toIR();
             Llvm.Instruction ret = new Llvm.Return(expr.type.toLlvmType(), expr.result);
             expr.ir.appendCode(ret);
-            return new RetInstruction(expr.ir,expr.type,expr.result);
+            return new RetInstruction(expr.ir, expr.type, expr.result);
         }
     }
 
     // Concrete class for Expression: constant (integer) case
     static public class IntegerExpression extends Instruction {
         int value;
+
         public IntegerExpression(int value) {
             this.value = value;
         }
@@ -364,7 +369,8 @@ public class ASD {
 
         String value;
         Type type;
-        public IntegerExpression(String value) {
+
+        public VarExpression(String value) {
             this.value = value;
             this.type = new Int();
         }
@@ -376,17 +382,18 @@ public class ASD {
         public RetInstruction toIR() {
             // Here we simply return an empty IR
             // the `result' of this expression is the integer itself (as string)
-            String result = Utils.newtmp();
-            Llwm.Instruction varExp = new Llvm.VarExp(result, value, type);
+            String tmp = Utils.newtmp();
+            Llvm.Instruction varExp = new Llvm.VarExp(tmp, value, type.toLlvmType());
             Llvm.IR res = new Llvm.IR(Llvm.empty(), Llvm.empty());
             res.appendCode(varExp);
-            return new RetInstruction(res, type, "" + value);
+            return new RetInstruction(res, type, "" + tmp);
         }
     }
 
     // Warning: this is the type from VSL+, not the LLVM types!
     static public abstract class Type {
         public abstract String pp();
+
         public abstract Llvm.Type toLlvmType();
     }
 
@@ -395,12 +402,13 @@ public class ASD {
             return "INT";
         }
 
-        @Override public boolean equals(Object obj) {
+        @Override
+        public boolean equals(Object obj) {
             return obj instanceof Int;
         }
 
         public Llvm.Type toLlvmType() {
-            return new Llvm.Int();http://etudiant.istic.univ-rennes1.fr/current/m1info/PDS/tp/TP2/sujet.pdf
+            return new Llvm.Int();
         }
     }
 }

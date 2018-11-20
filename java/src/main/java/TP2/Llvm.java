@@ -124,7 +124,7 @@ public class Llvm {
         }
 
         public String toString() {
-            return "%" + tmp + " = load " + type + ", " + type + "* %" + variable + "\n";
+            return tmp + " = load " + type + ", " + type + "* %" + variable + "\n";
         }
     }
 
