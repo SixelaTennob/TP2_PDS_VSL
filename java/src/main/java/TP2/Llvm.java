@@ -90,6 +90,14 @@ public class Llvm {
         public abstract String toString();
     }
 
+    static public class accolGauche extends Instruction {
+        public String toString() { return "{"; }
+    }
+    static public class accolDroite extends Instruction {
+        public String toString() { return "}"; }
+    }
+
+
     static public class Variable extends Instruction{
         String variable;
         Type type;
