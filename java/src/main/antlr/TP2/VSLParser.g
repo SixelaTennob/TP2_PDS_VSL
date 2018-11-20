@@ -56,5 +56,6 @@ expression_haute returns [ASD.Instruction out]
 
 primary returns [ASD.Instruction out]
     : INTEGER { $out = new ASD.IntegerExpression($INTEGER.int); }
+    | IDENT { $out = new ASD.IdentVar($IDENT.text); }
     | LP e=expression_basse RP { $out=$e.out; }
     ;

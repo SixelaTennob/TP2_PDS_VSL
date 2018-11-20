@@ -360,6 +360,31 @@ public class ASD {
         }
     }
 
+    static public class VarExpression extends Instruction {
+
+        String value;
+        Type type;
+        public IntegerExpression(String value) {
+            this.value = value;
+            this.type = new Int();
+        }
+
+        public String pp() {
+            return "" + value;
+        }
+
+        public RetInstruction toIR() {
+            // Here we simply return an empty IR
+            // the `result' of this expression is the integer itself (as string)
+            String result = Utils.newtmp();
+            Llwm.Instruction varExp = new Llvm.VarExp(result, value, type);
+            Llvm.IR res = new Llvm.IR(Llvm.empty(), Llvm.empty());
+            res.appendCode(varExp);
+            return new RetInstruction(res, type, "" + value);
+        }
+    }
+
+
     // Warning: this is the type from VSL+, not the LLVM types!
     static public abstract class Type {
         public abstract String pp();

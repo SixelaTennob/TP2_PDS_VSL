@@ -104,6 +104,22 @@ public class Llvm {
         }
     }
 
+    static public class VarExp extends Instruction{
+        String tmp;
+        String variable;
+        Type type;
+
+        public VarExp(String tmp, String variable, Type type){
+            this.tmp = tmp;
+            this.variable = variable;
+            this .type = type;
+        }
+
+        public String toString() {
+            return "%" + tmp + " = load " + type + ", " + type + "* %" + variable + "\n";
+        }
+    }
+
     static public class Aff extends Instruction {
         Type type;
         String left;
