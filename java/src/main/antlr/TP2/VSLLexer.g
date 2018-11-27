@@ -31,6 +31,14 @@ RA    : '}';
 INT   : 'INT';
 VIR   : ',';
 RET   : 'RETURN';
+IF    : 'IF';
+FI    : 'FI';
+THEN  : 'THEN';
+ELSE  : 'ELSE';
+WHILE : 'WHILE';
+DO    : 'DO';
+DONE  : 'DONE';
+NOT   ; 'NOT';
 
 // TODO : other keywords
 

@@ -66,7 +66,6 @@ public class ASD {
         }
     }
 
-
     static public class BlocExt extends Bloc {
         List<Instruction> listInstruction;
 
@@ -90,6 +89,36 @@ public class ASD {
                 blocIR.append(i.toIR().ir);
             }
             return new RetBloc(blocIR);
+        }
+    }
+
+    static public class IfThen extends Instruction {
+        Instruction e;
+        Bloc bIf;
+
+        public IfThen(Instruction e, Bloc bIf) {
+            this.e=e;
+            this.bIf=bIf;
+        }
+
+        //Pretty Printer
+        public String pp() {
+            return "IF "+ e + "\n" + "THEN\n\t"+ bIf;
+        }
+
+        public RetInstruction toIR() throws TypeException {
+            String labelIf = new Utils.newlab("then");
+            String labelFin = new  Utils.newlab("fi");
+
+            Llvm.IR IfThenIR = new Llvm.IR(Llvm.empty(), Llvm.empty());
+            Llvm.Instruction IfIR = new Llvm.Label(labelIf);
+            Llvm.Instruction IfFin = new Llvm.BrFin(labelFin);
+            Llvm.Instruction Fin = new Llvm.Label(labelFin)
+            IfThenIR.appendCode(IfIR);
+            IfThenIR.append(bIf.toIR().ir);
+            IfThenIR.appendCode(IfFin);
+            IfThenIR.appendCode(Fin);
+            return new RetInstruction(IfThenIR, null, null);
         }
     }
 

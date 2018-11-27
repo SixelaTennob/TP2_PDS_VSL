@@ -97,6 +97,47 @@ public class Llvm {
         public String toString() { return "}"; }
     }
 
+    static public class Label extends Instruction {
+        String label;
+
+        public Label(String label){
+            this.label=label;
+        }
+
+
+        public String toString() {
+            return label + ":";
+        }
+    }
+
+    static public class BrFin extends Instruction{
+        String br;
+
+        public BrFin(String br){
+            this.br = br;
+        }
+
+        public String toString() {
+            return "br label %" + br;
+        }
+    }
+
+    static public class IfThenElse extends Instruction{
+        String variable;
+        String label;
+        String label2;
+
+        public IfThenElse(String variable, String label, String label2){
+            this.variable = variable;
+            this.label=label;
+            this.label2=label2;
+        }
+
+        public String toString() {
+            return "br i1" + variable +", label %" + label + ", label %" + label2;
+        }
+
+    }
 
     static public class Variable extends Instruction{
         String variable;
@@ -104,7 +145,7 @@ public class Llvm {
 
         public Variable(String variable, Type type){
             this.variable = variable;
-            this .type = type;
+            this.type = type;
         }
 
         public String toString() {
