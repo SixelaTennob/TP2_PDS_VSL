@@ -97,6 +97,38 @@ public class Llvm {
         public String toString() { return "}"; }
     }
 
+    static public class ConditionTrue extends Instruction{
+        String tmp;
+        String tmp2;
+        Type tp;
+
+        public ConditionTrue(String tmp, Type tp, String tmp2){
+            this.tmp = tmp;
+            this.tmp2 = tmp2;
+            this.tp = tp;
+        }
+
+        public String toString() {
+            return tmp + " = icmp eq " + tp + " " + tmp2 + ", 0\n";
+        }
+    }
+
+    static public class ConditionFalse extends Instruction{
+        String tmp;
+        String tmp2;
+        Type tp;
+
+        public ConditionFalse(String tmp, Type tp, String tmp2){
+            this.tmp = tmp;
+            this.tmp2 = tmp2;
+            this.tp = tp;
+        }
+
+        public String toString() {
+            return tmp + " = icmp ne " + tp + " " + tmp2 + ", 0\n";
+        }
+    }
+
     static public class Label extends Instruction {
         String label;
 
@@ -106,7 +138,7 @@ public class Llvm {
 
 
         public String toString() {
-            return label + ":";
+            return label + ":\n";
         }
     }
 
@@ -118,23 +150,23 @@ public class Llvm {
         }
 
         public String toString() {
-            return "br label %" + br;
+            return "br label %" + br + "\n\n";
         }
     }
 
-    static public class IfThenElse extends Instruction{
+    static public class IfThen extends Instruction{
         String variable;
         String label;
         String label2;
 
-        public IfThenElse(String variable, String label, String label2){
+        public IfThen(String variable, String label, String label2){
             this.variable = variable;
             this.label=label;
             this.label2=label2;
         }
 
         public String toString() {
-            return "br i1" + variable +", label %" + label + ", label %" + label2;
+            return "br i1 " + variable + ", label %" + label + ", label %" + label2 + "\n\n";
         }
 
     }
@@ -161,7 +193,7 @@ public class Llvm {
         public VarExp(String tmp, String variable, Type type){
             this.tmp = tmp;
             this.variable = variable;
-            this .type = type;
+            this.type = type;
         }
 
         public String toString() {

@@ -38,7 +38,7 @@ ELSE  : 'ELSE';
 WHILE : 'WHILE';
 DO    : 'DO';
 DONE  : 'DONE';
-NOT   ; 'NOT';
+NOT   : 'NOT';
 
 // TODO : other keywords
 

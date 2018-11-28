@@ -92,6 +92,57 @@ public class ASD {
         }
     }
 
+    static public class ConditionTrue extends Instruction{
+        Instruction e;
+
+        public ConditionTrue(Instruction e){
+            this.e = e;
+        }
+
+        //Pretty Printer
+        public String pp() {
+            return "IF" + e.pp() + "\n";
+        }
+
+
+        public RetInstruction toIR() throws TypeException {
+            Instruction.RetInstruction retE = this.e.toIR();
+            String tmp = Utils.newtmp();
+            Type tp = new Int();
+            Llvm.IR cond = new Llvm.IR(Llvm.empty(),Llvm.empty());
+            Llvm.Instruction testCond = new Llvm.ConditionTrue(tmp, tp.toLlvmType(),retE.result);
+            cond.append(retE.ir);
+            cond.appendCode(testCond);
+            return new RetInstruction(cond,tp,tmp);
+        }
+    }
+
+    static public class ConditionFalse extends Instruction{
+        Instruction e;
+
+        public ConditionFalse(Instruction e){
+            this.e = e;
+        }
+
+        //Pretty Printer
+        public String pp() {
+            return "IF" + e.pp() + "\n";
+        }
+
+
+        public RetInstruction toIR() throws TypeException {
+            Instruction.RetInstruction retE = this.e.toIR();
+            String tmp = Utils.newtmp();
+            Type tp = new Int();
+            Llvm.IR cond = new Llvm.IR(Llvm.empty(),Llvm.empty());
+            Llvm.Instruction testCond = new Llvm.ConditionFalse(tmp, tp.toLlvmType(),retE.result);
+            cond.append(retE.ir);
+            cond.appendCode(testCond);
+            return new RetInstruction(cond,tp,tmp);
+        }
+    }
+
+
     static public class IfThen extends Instruction {
         Instruction e;
         Bloc bIf;
@@ -103,22 +154,69 @@ public class ASD {
 
         //Pretty Printer
         public String pp() {
-            return "IF "+ e + "\n" + "THEN\n\t"+ bIf;
+            return "THEN\n\t"+ bIf;
         }
 
         public RetInstruction toIR() throws TypeException {
-            String labelIf = new Utils.newlab("then");
-            String labelFin = new  Utils.newlab("fi");
+            String labelIf = Utils.newlab("then");
+            String labelFin = Utils.newlab("fi");
 
             Llvm.IR IfThenIR = new Llvm.IR(Llvm.empty(), Llvm.empty());
+            Instruction.RetInstruction retE = this.e.toIR();
+            Llvm.Instruction Br = new Llvm.IfThen(retE.result,labelIf,labelFin);
             Llvm.Instruction IfIR = new Llvm.Label(labelIf);
             Llvm.Instruction IfFin = new Llvm.BrFin(labelFin);
-            Llvm.Instruction Fin = new Llvm.Label(labelFin)
+            Llvm.Instruction Fin = new Llvm.Label(labelFin);
+
+            IfThenIR.append(retE.ir);
+            IfThenIR.appendCode(Br);
             IfThenIR.appendCode(IfIR);
             IfThenIR.append(bIf.toIR().ir);
             IfThenIR.appendCode(IfFin);
             IfThenIR.appendCode(Fin);
             return new RetInstruction(IfThenIR, null, null);
+        }
+    }
+
+    static public class IfThenElse extends Instruction {
+        Instruction e;
+        Bloc bIf;
+        Bloc bElse;
+
+        public IfThenElse(Instruction e, Bloc bIf, Bloc bElse) {
+            this.e=e;
+            this.bIf=bIf;
+            this.bElse=bElse;
+        }
+
+        //Pretty Printer
+        public String pp() {
+            return "THEN\n\t" + bIf + "ELSE\n\t" + bElse;
+        }
+
+        public RetInstruction toIR() throws TypeException {
+            String labelIf = Utils.newlab("if");
+            String labelElse = Utils.newlab("else");
+            String labelFin = Utils.newlab("fi");
+
+            Llvm.IR IfThenElseIR = new Llvm.IR(Llvm.empty(), Llvm.empty());
+            Instruction.RetInstruction retE = this.e.toIR();
+            Llvm.Instruction Br = new Llvm.IfThen(retE.result,labelIf,labelElse);
+            Llvm.Instruction IfIR = new Llvm.Label(labelIf);
+            Llvm.Instruction IfFin = new Llvm.BrFin(labelFin);
+            Llvm.Instruction ElseIR = new Llvm.Label(labelElse);
+            Llvm.Instruction Fin = new Llvm.Label(labelFin);
+
+            IfThenElseIR.append(retE.ir);
+            IfThenElseIR.appendCode(Br);
+            IfThenElseIR.appendCode(IfIR);
+            IfThenElseIR.append(bIf.toIR().ir);
+            IfThenElseIR.appendCode(IfFin);
+            IfThenElseIR.appendCode(ElseIR);
+            IfThenElseIR.append(bElse.toIR().ir);
+            IfThenElseIR.appendCode(IfFin);
+            IfThenElseIR.appendCode(Fin);
+            return new RetInstruction(IfThenElseIR, null, null);
         }
     }
 
@@ -354,21 +452,21 @@ public class ASD {
     }
 
     static public class Retourne extends Instruction {
-        Instruction expression;
+        Instruction e;
 
-        public Retourne(Instruction expression) {
+        public Retourne(Instruction e) {
 
-            this.expression = expression;
+            this.e = e;
         }
 
         @java.lang.Override
         public String pp() {
-            return "RETURN " + expression.pp();
+            return "RETURN " + e.pp();
         }
 
         @java.lang.Override
         public RetInstruction toIR() throws TypeException {
-            Instruction.RetInstruction expr = expression.toIR();
+            Instruction.RetInstruction expr = e.toIR();
             Llvm.Instruction ret = new Llvm.Return(expr.type.toLlvmType(), expr.result);
             expr.ir.appendCode(ret);
             return new RetInstruction(expr.ir, expr.type, expr.result);

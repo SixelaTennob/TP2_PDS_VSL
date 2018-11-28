@@ -21,24 +21,24 @@ program returns [ASD.Program out]
 
 bloc returns [ASD.Bloc out]
     //déclaration d'une ArrayList de type expression_basse
-    :{ List<ASD.Instruction> ListInstruction = new ArrayList<>(); }//{} spécifie au parser que c'est du code java pas une recherche de tokens
-     (i=instruction {ListInstruction.add($i.out);})*  { $out = new ASD.BlocExt(ListInstruction); }
-     |LA (i=instruction {ListInstruction.add($i.out);})*  RA { $out = new ASD.BlocExt(ListInstruction); }
+    :{ List<ASD.Instruction> listInstruction = new ArrayList<>(); }//{} spécifie au parser que c'est du code java pas une recherche de tokens
+     (i=instruction {listInstruction.add($i.out);})*  { $out = new ASD.BlocExt(listInstruction); }
+     |{ List<ASD.Instruction> listInstruction = new ArrayList<>(); } LA (i=instruction {listInstruction.add($i.out);})*  RA { $out = new ASD.BlocExt(listInstruction); }
      //Pas besoin de $ car c'est une variable synthétisée (qui existe que dans le code java) contrairement à e qui est une variable héritée
     ;
 instruction returns [ASD.Instruction out]
      :a=affectation {$out = $a.out;}
      |e=expression_basse {$out = $e.out;}
      |INT v=variable {$out = $v.out;}
-     |IF c=condition THEN b=bloc FI {$out.add(new ASD.IfThen($c.out,$b.out));}
-     |IF c=condition THEN b=bloc ELSE b2=bloc FI {$out.add(new ASD.IfThenElse($c.out,$b.out,$b2.out));}
-     |WHILE c=condition DO b=bloc DONE {$out.add(new ASD.While($c.out,$b.bloc));}
+     |IF c=condition THEN b=bloc FI {$out = new ASD.IfThen($c.out,$b.out);}
+     |IF c=condition THEN b=bloc ELSE b2=bloc FI {$out = new ASD.IfThenElse($c.out,$b.out,$b2.out);}
+     //|WHILE c=condition DO b=bloc DONE {$out = new ASD.While($c.out,$b.out);}
      |RET e=expression_basse {$out = new ASD.Retourne ($e.out);}
      ;
 
-condition returns [ASD.Condition out]
-    : NOT e=expression_basse {$out = new ASD.ConditionNot($e.out);}
-    | e=xpression_basse {$out = new ASD.Condition($e.out);}
+condition returns [ASD.Instruction out]
+    : e=expression_basse {$out = new ASD.ConditionTrue($e.out);}
+    | NOT e=expression_basse {$out = new ASD.ConditionFalse($e.out);}
     ;
 variable returns [ASD.Instruction out]
     : {List<String> listVariable = new ArrayList<>();}
