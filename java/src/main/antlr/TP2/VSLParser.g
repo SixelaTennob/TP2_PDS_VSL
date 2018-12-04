@@ -32,7 +32,7 @@ instruction returns [ASD.Instruction out]
      |INT v=variable {$out = $v.out;}
      |IF c=condition THEN b=bloc FI {$out = new ASD.IfThen($c.out,$b.out);}
      |IF c=condition THEN b=bloc ELSE b2=bloc FI {$out = new ASD.IfThenElse($c.out,$b.out,$b2.out);}
-     //|WHILE c=condition DO b=bloc DONE {$out = new ASD.While($c.out,$b.out);}
+     |WHILE c=condition DO b=bloc DONE {$out = new ASD.While($c.out,$b.out);}
      |RET e=expression_basse {$out = new ASD.Retourne ($e.out);}
      ;
 

@@ -120,9 +120,7 @@ public class ASD {
     static public class ConditionFalse extends Instruction{
         Instruction e;
 
-        public ConditionFalse(Instruction e){
-            this.e = e;
-        }
+        public ConditionFalse(Instruction e){this.e = e;}
 
         //Pretty Printer
         public String pp() {
@@ -142,6 +140,44 @@ public class ASD {
         }
     }
 
+    static public class While extends Instruction {
+        Instruction e;
+        Bloc bDo;
+
+        public While (Instruction e, Bloc bDo) {
+            this.e=e;
+            this.bDo=bDo;
+        }
+
+        //Pretty Printer
+        public String pp() {
+            return "WHILE " + e + "\nDO\n{\n\t" + bDo + "DONE";
+        }
+
+        public RetInstruction toIR() throws TypeException {
+            String labelWhile = Utils.newlab("while");
+            String labelDo = Utils.newlab("do");
+            String labelDone = Utils.newlab("done");
+
+            Llvm.IR whileDo = new Llvm.IR(Llvm.empty(), Llvm.empty());
+            Instruction.RetInstruction retE = this.e.toIR();
+            Llvm.Instruction BrWhile = new Llvm.BrFin(labelWhile);
+            Llvm.Instruction While = new Llvm.Label(labelWhile);
+            Llvm.Instruction LDo = new Llvm.Label(labelDo);
+            Llvm.Instruction BrDoOrDone = new Llvm.IfThen(retE.result,labelDo,labelDone);
+            Llvm.Instruction Fin = new Llvm.Label(labelDone);
+
+            whileDo.appendCode(BrWhile);
+            whileDo.appendCode(While);
+            whileDo.append(retE.ir);
+            whileDo.appendCode(BrDoOrDone);
+            whileDo.appendCode(LDo);
+            whileDo.append(bDo.toIR().ir);
+            whileDo.appendCode(BrWhile);
+            whileDo.appendCode(Fin);
+            return new RetInstruction(whileDo, null, null);
+        }
+    }
 
     static public class IfThen extends Instruction {
         Instruction e;
